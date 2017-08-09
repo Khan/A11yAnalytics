@@ -10,6 +10,7 @@
 		935756141F3B938300A88359 /* A11yAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9357560A1F3B938300A88359 /* A11yAnalytics.framework */; };
 		935756191F3B938300A88359 /* A11yAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935756181F3B938300A88359 /* A11yAnalyticsTests.swift */; };
 		9357561B1F3B938300A88359 /* A11yAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 9357560D1F3B938300A88359 /* A11yAnalytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		935756251F3B93D700A88359 /* A11yAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935756241F3B93D700A88359 /* A11yAnalytics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		935756131F3B938300A88359 /* A11yAnalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = A11yAnalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		935756181F3B938300A88359 /* A11yAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A11yAnalyticsTests.swift; sourceTree = "<group>"; };
 		9357561A1F3B938300A88359 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		935756241F3B93D700A88359 /* A11yAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = A11yAnalytics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				9357560D1F3B938300A88359 /* A11yAnalytics.h */,
 				9357560E1F3B938300A88359 /* Info.plist */,
+				935756241F3B93D700A88359 /* A11yAnalytics.swift */,
 			);
 			path = A11yAnalytics;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 					935756091F3B938300A88359 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = VAEW37C5T2;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					935756121F3B938300A88359 = {
@@ -198,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				935756251F3B93D700A88359 /* A11yAnalytics.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +329,7 @@
 		9357561F1F3B938300A88359 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = VAEW37C5T2;
@@ -336,6 +342,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.khanacademy.A11yAnalytics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -343,6 +350,7 @@
 		935756201F3B938300A88359 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = VAEW37C5T2;
@@ -362,6 +370,7 @@
 		935756221F3B938300A88359 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = VAEW37C5T2;
 				INFOPLIST_FILE = A11yAnalyticsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -374,6 +383,7 @@
 		935756231F3B938300A88359 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = VAEW37C5T2;
 				INFOPLIST_FILE = A11yAnalyticsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
