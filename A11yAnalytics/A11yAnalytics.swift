@@ -53,34 +53,63 @@ import UIKit
             .speakSelectionEnabled,
             .preferredContentSize,
         ]
+
+        public enum Kind {
+            case audio, interaction, visual
+            static let all: [Kind] = [.audio, .interaction, .visual]
+        }
     }
 
     /// Retrieves the current accessibility settings for the user, useful for most analytics tools!
-    @objc public static func currentSettings() -> [String: String] {
+    @objc public static func currentSettings(includeSummary: Bool) -> [String: String] {
         // NOTE (bryan): I'd have this as a default parameter for `currentSettings(for:)`
         // but @objc can't understand the [Capability] parameter, hence this implementation.
-        return currentSettings(for: Capability.all)
+        return currentSettings(for: Capability.all, includeSummary: includeSummary)
     }
 
     /// Retrieves the current accessibility settings for the user useful for most analytics tools!
     /// Here, you can specify a subset of capabilities -- for example, if you're only interested
     /// in Dynamic Type, then pass in `[.preferredContentSize]`.
     public static func currentSettings(
-        for capabilities: [Capability]
+        for capabilities: [Capability],
+        includeSummary: Bool = true
     ) -> [String: String] {
-        let isAnyCapabilityEnabled = capabilities.reduce(false) { return $0 || $1.isNonDefault }
-        let overviewInfo: [String: String] = [
-            "a11y: anything enabled?" : isAnyCapabilityEnabled.analyticsDescription,
-            // TODO (bryan): Maybe subcategories of "enabled", like visual, audio, etc?
-        ]
+        let summary = includeSummary
+            ? summaryOfAccessibilitySettings()
+            : [:]
+
         let output: [String: String] = capabilities
-            .reduce(overviewInfo) { (accumulator, capability) in
+            .reduce(summary) { (accumulator, capability) in
                 var result = accumulator
                 result[capability.analyticsKey] = capability.currentValue.analyticsDescription
                 return result
             }
         return output
     }
+
+    /// Don't want to report any detailed accessibility settings to your analytics service?
+    /// This returns a simple overview, with no specific capabilities mentioned.
+    public static func summaryOfAccessibilitySettings() -> [String: String] {
+        let capabilities = Capability.all
+
+        // First, let's figure out what audio/interaction/visual settings are used:
+        var summary: [String: String] = Capability.Kind.all
+            .reduce([:]) { (accumulator, kind) in
+                var result = accumulator
+                let anyNonDefaultInThisKind = capabilities.reduce(false) { return $0 || $1.kind == kind }
+                result[kind.analyticsKey] = anyNonDefaultInThisKind.analyticsDescription
+                return result
+            }
+
+        // Then we add the "is any capability at all enabled?" value.
+        summary[AccessibilityAnalytics.summaryAnythingEnabledKey] = capabilities
+            .reduce(false) { $0 || $1.isNonDefault }
+            .analyticsDescription
+
+        return summary
+    }
+
+    internal static let summaryAnythingEnabledKey = "a11y: anything enabled?"
 }
 
 internal extension AccessibilityAnalytics.Capability {
@@ -199,9 +228,58 @@ internal extension AccessibilityAnalytics.Capability {
         }
     }
 
+    internal var kind: AccessibilityAnalytics.Capability.Kind {
+        switch self {
+        case .assistiveTouchRunning:
+            return .interaction
+        case .boldTextEnabled:
+            return .visual
+        case .closedCaptioningEnabled:
+            return .audio
+        case .darkerSystemColorsEnabled:
+            return .visual
+        case .grayscaleEnabled:
+            return .visual
+        case .guidedAccessEnabled:
+            return .interaction
+        case .invertColorsEnabled:
+            return .visual
+        case .monoAudioEnabled:
+            return .audio
+        case .preferredContentSize:
+            return .visual
+        case .reduceMotionEnabled:
+            return .visual
+        case .reduceTransparencyEnabled:
+            return .visual
+        case .shakeToUndoEnabled:
+            return .interaction
+        case .speakScreenEnabled:
+            return .interaction
+        case .speakSelectionEnabled:
+            // STOPSHIP is this right?
+            return .interaction
+        case .switchControlRunning:
+            // STOPSHIP is this right?
+            return .interaction
+        case .voiceOverRunning:
+            return .visual
+        }
+    }
+
     /// Whether or not the current value is different than the default value
     internal var isNonDefault: Bool {
         return currentValue.analyticsDescription != defaultValue.analyticsDescription
+    }
+}
+
+internal extension AccessibilityAnalytics.Capability.Kind {
+    internal var analyticsKey: String {
+        switch self {
+        case .audio: return "a11y: any audio enabled?"
+        case .visual: return "a11y: any visual enabled?"
+        case .interaction: return "a11y: any interaction enabled?"
+        }
     }
 }
 
