@@ -75,5 +75,17 @@ class A11yAnalyticsTests: XCTestCase {
                 XCTAssertEqual(defaultDescription, capability.defaultValue.analyticsDescription)
             }
     }
-    
+
+    /// Verifies that there aren't any analytics-key conflicts for the dictionary
+    func testNoAnalyticsKeysConflict() {
+        let capabilitiesKeys = AccessibilityAnalytics.Capability.all.map { $0.analyticsKey }
+        let summaryKey = [AccessibilityAnalytics.summaryAnythingEnabledKey]
+        let summaryKindKeys = AccessibilityAnalytics.Capability.Kind.all.map { $0.analyticsKey }
+
+        let allKeys = capabilitiesKeys + summaryKey + summaryKindKeys
+        let uniqueKeys = Set(allKeys)
+
+        XCTAssertEqual(allKeys.count, uniqueKeys.count)
+
+    }
 }
