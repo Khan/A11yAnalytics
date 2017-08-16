@@ -28,13 +28,13 @@ The dictionary that you get back will look like this:
 
 ```
 [
-    "a11y: anything enabled?": "false",
-    "a11y: any audio enabled?": "true",
-    "a11y: any interaction enabled?": "true",
+    "a11y: anything enabled?": "true",
+    "a11y: any audio enabled?": "false",
+    "a11y: any interaction enabled?": "false",
     "a11y: any visual enabled?": "true",
 
     "assistiveTouchEnabled": "false",    
-    "boldTextEnabled": "false", 
+    "boldTextEnabled": "true", 
     "closedCaptioningEnabled": "false",
     "darkerSystemColorsEnabled": "false",
     "grayscaleEnabled": "false",
