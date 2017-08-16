@@ -10,7 +10,7 @@ import UIKit
 
 /// A simple-to-query tool for checking what the user's current accessibility settings are.
 /// Useful for figuring out what type-size preferences, reduce-motion settings, etc are used.
-@objc public class AccessibilityAnalytics {
+@objc public class AccessibilityAnalytics: NSObject {
 
     /// A list of all of the currently-supported accessibility capabilities.
     /// You can find most of these in Apple's documentation here:
