@@ -83,7 +83,7 @@ import UIKit
     }
 }
 
-fileprivate extension AccessibilityAnalytics.Capability {
+internal extension AccessibilityAnalytics.Capability {
     /// The current value for the accessibility setting.
     var currentValue: AnalyticsDescribable {
         switch self {
@@ -124,7 +124,7 @@ fileprivate extension AccessibilityAnalytics.Capability {
         }
     }
 
-    fileprivate var defaultValue: AnalyticsDescribable {
+    internal var defaultValue: AnalyticsDescribable {
         switch self {
         case .assistiveTouchRunning:
             return false
@@ -162,7 +162,7 @@ fileprivate extension AccessibilityAnalytics.Capability {
         }
     }
 
-    var analyticsKey: String {
+    internal var analyticsKey: String {
         switch self {
         case .assistiveTouchRunning:
             return "assistiveTouchEnabled"
@@ -200,12 +200,12 @@ fileprivate extension AccessibilityAnalytics.Capability {
     }
 
     /// Whether or not the current value is different than the default value
-    var isNonDefault: Bool {
+    internal var isNonDefault: Bool {
         return currentValue.analyticsDescription != defaultValue.analyticsDescription
     }
 }
 
-fileprivate protocol AnalyticsDescribable {
+internal protocol AnalyticsDescribable {
     var analyticsDescription: String { get }
 }
 
