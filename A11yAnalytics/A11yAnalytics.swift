@@ -260,7 +260,6 @@ internal extension AccessibilityAnalytics.Capability {
             // STOPSHIP is this right?
             return .interaction
         case .switchControlRunning:
-            // STOPSHIP is this right?
             return .interaction
         case .voiceOverRunning:
             return .visual
