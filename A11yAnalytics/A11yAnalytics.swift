@@ -197,7 +197,7 @@ fileprivate extension AccessibilityAnalytics.Capability {
 
     /// Whether or not the current value is different than the default value
     var isNonDefault: Bool {
-        return currentValue.analyticsDescription == defaultValue.analyticsDescription
+        return currentValue.analyticsDescription != defaultValue.analyticsDescription
     }
 }
 
