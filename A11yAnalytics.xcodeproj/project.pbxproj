@@ -31,6 +31,7 @@
 		935756181F3B938300A88359 /* A11yAnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A11yAnalyticsTests.swift; sourceTree = "<group>"; };
 		9357561A1F3B938300A88359 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		935756241F3B93D700A88359 /* A11yAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = A11yAnalytics.swift; sourceTree = "<group>"; };
+		937CF72F1F43C973003FAB90 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +56,7 @@
 		935756001F3B938300A88359 = {
 			isa = PBXGroup;
 			children = (
+				937CF72F1F43C973003FAB90 /* README.md */,
 				9357560C1F3B938300A88359 /* A11yAnalytics */,
 				935756171F3B938300A88359 /* A11yAnalyticsTests */,
 				9357560B1F3B938300A88359 /* Products */,
@@ -412,6 +414,7 @@
 				935756201F3B938300A88359 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		935756211F3B938300A88359 /* Build configuration list for PBXNativeTarget "A11yAnalyticsTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +423,7 @@
 				935756231F3B938300A88359 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
