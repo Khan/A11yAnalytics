@@ -10,7 +10,7 @@ import UIKit
 
 /// A simple-to-query tool for checking what the user's current accessibility settings are.
 /// Useful for figuring out what type-size preferences, reduce-motion settings, etc are used.
-public struct AccessibilityAnalytics {
+@objc public class AccessibilityAnalytics {
 
     /// A list of all of the currently-supported accessibility capabilities.
     /// You can find most of these in Apple's documentation here:
@@ -55,15 +55,19 @@ public struct AccessibilityAnalytics {
         ]
     }
 
-    /// Retrieves the current accessibility settings for the user;
-    /// useful for most-any analytics tool!
-    ///
-    /// By default, this reports all of the accessibility settings it can;
-    /// if you'd rather get a subset, you can (optionally) specify which ones.
-    public static func currentSettings(
-        for capabilities: [Capability] = Capability.all
-    ) -> [String: String] {
+    /// Retrieves the current accessibility settings for the user, useful for most analytics tools!
+    @objc public static func currentSettings() -> [String: String] {
+        // NOTE (bryan): I'd have this as a default parameter for `currentSettings(for:)`
+        // but @objc can't understand the [Capability] parameter, hence this implementation.
+        return currentSettings(for: Capability.all)
+    }
 
+    /// Retrieves the current accessibility settings for the user useful for most analytics tools!
+    /// Here, you can specify a subset of capabilities -- for example, if you're only interested
+    /// in Dynamic Type, then pass in `[.preferredContentSize]`.
+    public static func currentSettings(
+        for capabilities: [Capability]
+    ) -> [String: String] {
         let isAnyCapabilityEnabled = capabilities.reduce(false) { return $0 || $1.isNonDefault }
         let overviewInfo: [String: String] = [
             "a11y: anything enabled?" : isAnyCapabilityEnabled.analyticsDescription,
