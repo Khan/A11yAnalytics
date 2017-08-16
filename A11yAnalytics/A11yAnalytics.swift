@@ -186,7 +186,6 @@ internal extension AccessibilityAnalytics.Capability {
         case .speakSelectionEnabled:
             return false
         case .preferredContentSize:
-            // STOPSHIP (bryan): Is this correct? Or is it `.unspecified`?
             return UIContentSizeCategory.large
         }
     }
@@ -257,7 +256,6 @@ internal extension AccessibilityAnalytics.Capability {
         case .speakScreenEnabled:
             return .interaction
         case .speakSelectionEnabled:
-            // STOPSHIP is this right?
             return .interaction
         case .switchControlRunning:
             return .interaction
