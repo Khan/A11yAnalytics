@@ -96,7 +96,7 @@ import UIKit
         var summary: [String: String] = Capability.Kind.all
             .reduce([:]) { (accumulator, kind) in
                 var result = accumulator
-                let anyNonDefaultInThisKind = capabilities.reduce(false) { return $0 || $1.kind == kind }
+                let anyNonDefaultInThisKind = capabilities.reduce(false) { return $0 || ($1.kind == kind && $1.isNonDefault) }
                 result[kind.analyticsKey] = anyNonDefaultInThisKind.analyticsDescription
                 return result
             }
