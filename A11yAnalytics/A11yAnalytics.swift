@@ -61,7 +61,7 @@ import UIKit
     }
 
     /// Retrieves the current accessibility settings for the user, useful for most analytics tools!
-    @objc public static func currentSettings(includeSummary: Bool) -> [String: String] {
+    @objc public static func currentSettings(includeSummary: Bool = true) -> [String: String] {
         // NOTE (bryan): I'd have this as a default parameter for `currentSettings(for:)`
         // but @objc can't understand the [Capability] parameter, hence this implementation.
         return currentSettings(for: Capability.all, includeSummary: includeSummary)
