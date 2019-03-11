@@ -15,7 +15,7 @@ public class AccessibilityAnalytics: NSObject {
     /// A list of all of the currently-supported accessibility capabilities.
     /// You can find most of these in Apple's documentation here:
     /// https://developer.apple.com/documentation/uikit/accessibility
-    public enum Capability {
+	public enum Capability: CaseIterable {
         case assistiveTouchRunning
         case voiceOverRunning
         case switchControlRunning
@@ -35,43 +35,16 @@ public class AccessibilityAnalytics: NSObject {
         /// Also known as "Dynamic Type"
         case preferredContentSize
 
-        static let all: [Capability] = [
-            .assistiveTouchRunning,
-            .voiceOverRunning,
-            .switchControlRunning,
-            .shakeToUndoEnabled,
-            .closedCaptioningEnabled,
-            .boldTextEnabled,
-            .darkerSystemColorsEnabled,
-            .grayscaleEnabled,
-            .guidedAccessEnabled,
-            .invertColorsEnabled,
-            .monoAudioEnabled,
-            .reduceMotionEnabled,
-            .reduceTransparencyEnabled,
-            .speakScreenEnabled,
-            .speakSelectionEnabled,
-            .preferredContentSize,
-        ]
-
-        public enum Kind {
+		public enum Kind: CaseIterable {
             case audio, interaction, visual
-            static let all: [Kind] = [.audio, .interaction, .visual]
         }
-    }
-
-    /// Retrieves the current accessibility settings for the user, useful for most analytics tools!
-    public static func currentSettings(includeSummary: Bool = true) -> [String: String] {
-        // NOTE (bryan): I'd have this as a default parameter for `currentSettings(for:)`
-        // but @objc can't understand the [Capability] parameter, hence this implementation.
-        return currentSettings(for: Capability.all, includeSummary: includeSummary)
     }
 
     /// Retrieves the current accessibility settings for the user useful for most analytics tools!
     /// Here, you can specify a subset of capabilities -- for example, if you're only interested
     /// in Dynamic Type, then pass in `[.preferredContentSize]`.
     public static func currentSettings(
-        for capabilities: [Capability],
+        for capabilities: [Capability] = Capability.allCases,
         includeSummary: Bool = true
     ) -> [String: String] {
         let summary = includeSummary
@@ -90,10 +63,10 @@ public class AccessibilityAnalytics: NSObject {
     /// Don't want to report any detailed accessibility settings to your analytics service?
     /// This returns a simple overview, with no specific capabilities mentioned.
     public static func summaryOfAccessibilitySettings() -> [String: String] {
-        let capabilities = Capability.all
+        let capabilities = Capability.allCases
 
         // First, let's figure out what audio/interaction/visual settings are used:
-        var summary: [String: String] = Capability.Kind.all
+        var summary: [String: String] = Capability.Kind.allCases
             .reduce([:]) { (accumulator, kind) in
                 var result = accumulator
                 let anyNonDefaultInThisKind = capabilities.reduce(false) { return $0 || ($1.kind == kind && $1.isNonDefault) }
