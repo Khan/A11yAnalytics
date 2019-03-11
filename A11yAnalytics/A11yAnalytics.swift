@@ -10,7 +10,7 @@ import UIKit
 
 /// A simple-to-query tool for checking what the user's current accessibility settings are.
 /// Useful for figuring out what type-size preferences, reduce-motion settings, etc are used.
-@objc public class AccessibilityAnalytics: NSObject {
+public class AccessibilityAnalytics: NSObject {
 
     /// A list of all of the currently-supported accessibility capabilities.
     /// You can find most of these in Apple's documentation here:
@@ -61,7 +61,7 @@ import UIKit
     }
 
     /// Retrieves the current accessibility settings for the user, useful for most analytics tools!
-    @objc public static func currentSettings(includeSummary: Bool = true) -> [String: String] {
+    public static func currentSettings(includeSummary: Bool = true) -> [String: String] {
         // NOTE (bryan): I'd have this as a default parameter for `currentSettings(for:)`
         // but @objc can't understand the [Capability] parameter, hence this implementation.
         return currentSettings(for: Capability.all, includeSummary: includeSummary)
@@ -117,35 +117,35 @@ internal extension AccessibilityAnalytics.Capability {
     var currentValue: AnalyticsDescribable {
         switch self {
         case .assistiveTouchRunning:
-            return UIAccessibilityIsAssistiveTouchRunning()
+            return UIAccessibility.isAssistiveTouchRunning
         case .voiceOverRunning:
-            return UIAccessibilityIsVoiceOverRunning()
+            return UIAccessibility.isVoiceOverRunning
         case .switchControlRunning:
-            return UIAccessibilityIsSwitchControlRunning()
+            return UIAccessibility.isSwitchControlRunning
         case .shakeToUndoEnabled:
-            return UIAccessibilityIsShakeToUndoEnabled()
+            return UIAccessibility.isShakeToUndoEnabled
         case .closedCaptioningEnabled:
-            return UIAccessibilityIsClosedCaptioningEnabled()
+            return UIAccessibility.isClosedCaptioningEnabled
         case .boldTextEnabled:
-            return UIAccessibilityIsBoldTextEnabled()
+            return UIAccessibility.isBoldTextEnabled
         case .darkerSystemColorsEnabled:
-            return UIAccessibilityDarkerSystemColorsEnabled()
+            return UIAccessibility.isDarkerSystemColorsEnabled
         case .grayscaleEnabled:
-            return UIAccessibilityIsGrayscaleEnabled()
+            return UIAccessibility.isGrayscaleEnabled
         case .guidedAccessEnabled:
-            return UIAccessibilityIsGuidedAccessEnabled()
+            return UIAccessibility.isGuidedAccessEnabled
         case .invertColorsEnabled:
-            return UIAccessibilityIsInvertColorsEnabled()
+            return UIAccessibility.isInvertColorsEnabled
         case .monoAudioEnabled:
-            return UIAccessibilityIsMonoAudioEnabled()
+            return UIAccessibility.isMonoAudioEnabled
         case .reduceMotionEnabled:
-            return UIAccessibilityIsReduceMotionEnabled()
+            return UIAccessibility.isReduceMotionEnabled
         case .reduceTransparencyEnabled:
-            return UIAccessibilityIsReduceTransparencyEnabled()
+            return UIAccessibility.isReduceTransparencyEnabled
         case .speakScreenEnabled:
-            return UIAccessibilityIsSpeakScreenEnabled()
+            return UIAccessibility.isSpeakScreenEnabled
         case .speakSelectionEnabled:
-            return UIAccessibilityIsSpeakSelectionEnabled()
+            return UIAccessibility.isSpeakSelectionEnabled
 
         /// Also known as "Dynamic Type Size"
         case .preferredContentSize:

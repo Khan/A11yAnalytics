@@ -27,6 +27,9 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+		self.title = "A11y Analytics"
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "GitHub", style: .plain, target: self, action: #selector(openGithub))
+
         self.tableView.register(ExampleCell.self, forCellReuseIdentifier: ExampleCell.identifier)
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
@@ -34,7 +37,14 @@ class ViewController: UITableViewController {
         self.refreshData()
     }
 
-    @objc fileprivate func refreshData() {
+	@objc fileprivate func openGithub() {
+		let url = URL(string: "https://www.github.com/khan/a11yAnalytics")!
+		if UIApplication.shared.canOpenURL(url) {
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		}
+	}
+
+	@objc fileprivate func refreshData() {
         // Ta-da! A single-line-of-code to report what a11y settings a user has enabled.
         self.analyticsInfo = AccessibilityAnalytics.currentSettings()
         GenericAnalyticsService.shared.reportEvent(named: "accessibility_settings", info: self.analyticsInfo)
@@ -62,13 +72,15 @@ class ViewController: UITableViewController {
         return cell
     }
 
-    override var prefersStatusBarHidden: Bool { return true }
+	override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+		return false
+	}
 }
 
 fileprivate class ExampleCell: UITableViewCell {
     static let identifier = "A11yCell"
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: UITableViewCellStyle.value1, reuseIdentifier: reuseIdentifier)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: UITableViewCell.CellStyle.value1, reuseIdentifier: reuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
